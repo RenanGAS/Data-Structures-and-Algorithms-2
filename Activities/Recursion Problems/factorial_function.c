@@ -12,7 +12,7 @@ int fact(int num)
 
 int main()
 {
-    printf("\nCálculo de Fatoriais através de funções Recursivas\n");
+    printf("\nCálculo do Fatorial de um número inteiro positivo através de uma Função Recursiva\n");
 
     int n;
     printf("\nDigite um número: ");
