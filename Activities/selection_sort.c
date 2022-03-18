@@ -1,43 +1,42 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int maior(int *vector, int end)
+int bigger(int *vector, int end)
 {
-    int pmaior = 0;
+    int pbigger = 0;
 
     for (int i = 1; i <= end; i++)
     {
-        if (vector[pmaior] < vector[i])
+        if (vector[pbigger] < vector[i])
         {
-            pmaior = i;
-
+            pbigger = i;
         }
     }
 
-    return pmaior;
+    return pbigger;
 }
 
 int *selection_sort(int *vector, int end)
 {
     for (int i = end; i > 0; i--)
     {
-        int m = maior(vector, i);
+        int b = bigger(vector, i);
 
         int aux = vector[i];
-        vector[i] = vector[m];
-        vector[m] = aux;
+        vector[i] = vector[b];
+        vector[b] = aux;
     }
 
     return vector;
 }
 
-void printVector(int *vector, int tam)
+void printVector(int *vector, int size)
 {
     printf("\nvector = [");
 
-    for (int i = 0; i < tam; i++)
+    for (int i = 0; i < size; i++)
     {
-        if (i != tam - 1)
+        if (i != size - 1)
         {
             printf("%d, ", vector[i]);
         }
