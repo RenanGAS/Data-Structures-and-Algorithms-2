@@ -21,7 +21,7 @@ int *bubble_sort(int *vector, int end)
 {
     for (int i = end; i > 0; i--)
     {
-        bubbling(vector, end);
+        bubbling(vector, i);
     }
 
     return vector;
