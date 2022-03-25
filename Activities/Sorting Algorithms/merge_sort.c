@@ -4,7 +4,7 @@
 
 void printVector(int *vector, int size)
 {
-    printf("\nvector = [");
+    printf("\nVetor = [");
 
     for (int i = 0; i < size; i++)
     {
@@ -19,19 +19,14 @@ void printVector(int *vector, int size)
     }
 }
 
-void copy_vector(int *v_x, int *v, int tam)
+void copy_vector(int *v_x, int *v, int tam, int ref)
 {
     for (int i = 0; i < tam; i++)
     {
-        if (i == tam - 1)
-        {
-            v_x[i] = INT_MAX;
-        }
-        else
-        {
-            v_x[i] = v[i];
-        }
+        v_x[i] = v[i + ref];
     }
+
+    v_x[tam] = INT_MAX;
 }
 
 void merge_vectors(int *v, int p, int q, int r)
@@ -42,8 +37,8 @@ void merge_vectors(int *v, int p, int q, int r)
     int *v_e = calloc(tam_e + 1, sizeof(int));
     int *v_d = calloc(tam_d + 1, sizeof(int));
 
-    copy_vector(v_e, v, tam_e);
-    copy_vector(v_d, v, tam_d);
+    copy_vector(v_e, v, tam_e, p);
+    copy_vector(v_d, v, tam_d, q + 1);
 
     int i = 0;
     int j = 0;
@@ -79,13 +74,15 @@ void merge_sort(int *vector, int e, int d)
 
 int main()
 {
-    int v[10] = {9, 5, 3, 1};
+    int v[15] = {9, 7, 5, 3, 0, 1, 2, 6, 12, 10, 11, 13, -1, 8, 20};
 
-    printVector(v, 4);
+    printVector(v, 15);
 
-    merge_sort(v, 0, 3);
+    merge_sort(v, 0, 14);
 
-    printVector(v, 4);
+    printVector(v, 15);
+
+    printf("\n");
 
     return EXIT_SUCCESS;
 }
