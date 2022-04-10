@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct v
 {
@@ -38,6 +39,26 @@ void printStruct(V **s, int n)
     {
         printf("  %d |", s[i]->key);
     }
+
+    printf("\n\n");
+}
+
+void printStructNull(V **s, int n)
+{
+    printf("\nv =");
+    for (int i = 0; i < n; i++)
+    {
+        printf(" %d |", s[i]->data);
+    }
+
+    printf("\n   ");
+
+    for (int i = 0; i < n; i++)
+    {
+        printf(" %d |", s[i]->key);
+    }
+
+    printf("\n\n");
 }
 
 int maxElement(V **v, int n)
@@ -57,7 +78,7 @@ int maxElement(V **v, int n)
 
 void counting_sort(V **v, int n)
 {
-    int max = maxElement(v, n) + 1;
+    int max = maxElement(v, n) + 2;
 
     int *c = calloc(max, sizeof(int));
 
@@ -72,8 +93,8 @@ void counting_sort(V **v, int n)
         }
     }
 
-    printf("\n");
-    printVector(c, max);
+    // printf("\n");
+    // printVector(c, max);
 
     V **s = malloc(n * sizeof(V));
 
@@ -85,17 +106,15 @@ void counting_sort(V **v, int n)
         {
             for (int j = 0; j < c[i]; j++)
             {
-                printf("\n%d\n", countS);
                 s[countS] = calloc(2, sizeof(int));
                 s[countS]->key = i;
                 countS++;
-                
             }
         }
     }
 
-    printf("\n");
-    printStruct(s, n);
+    // printf("\n");
+    // printStructNull(s, n);
 
     for (int i = max - 1; i >= 0; i--)
     {
@@ -109,8 +128,22 @@ void counting_sort(V **v, int n)
         c[i] -= pull;
     }
 
-    printVector(c, max);
-    printf("\n");
+    // printf("\n");
+    // printVector(c, max);
+    // printf("\n");
+
+    for (int i = 0; i < n; i++)
+    {
+        s[c[v[i]->key]]->data = v[i]->data;
+        c[v[i]->key]++;
+    }
+
+    // printStruct(s, n);
+    // printf("\n");
+
+    memcpy(&v, &s, n);
+
+    printStruct(v, n);
 }
 
 int main()
