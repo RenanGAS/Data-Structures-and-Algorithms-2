@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define DEBUG 0
+
 typedef struct v
 {
     int data;
@@ -78,72 +80,47 @@ int maxElement(V **v, int n)
 
 void counting_sort(V **v, int n)
 {
+    int i, t, sum = 0;
     int max = maxElement(v, n) + 2;
 
+    V **s = malloc(n * sizeof(V));
     int *c = calloc(max, sizeof(int));
 
-    for (int i = 0; i < max; i++)
+    for (i = 0; i < max; i++)
     {
-        for (int j = 0; j < max; j++)
-        {
-            if (v[j]->key == i)
-            {
-                c[i]++;
-            }
-        }
-    }
-
-    // printf("\n");
-    // printVector(c, max);
-
-    V **s = malloc(n * sizeof(V));
-
-    int countS = 0;
-
-    for (int i = 0; i < max; i++)
-    {
-        if (c[i] > 0)
-        {
-            for (int j = 0; j < c[i]; j++)
-            {
-                s[countS] = calloc(2, sizeof(int));
-                s[countS]->key = i;
-                countS++;
-            }
-        }
-    }
-
-    // printf("\n");
-    // printStructNull(s, n);
-
-    for (int i = max - 1; i >= 0; i--)
-    {
-        int pull = c[i];
-
-        for (int j = 0; j < i; j++)
-        {
-            c[i] += c[j];
-        }
-
-        c[i] -= pull;
-    }
-
-    // printf("\n");
-    // printVector(c, max);
-    // printf("\n");
-
-    for (int i = 0; i < n; i++)
-    {
-        s[c[v[i]->key]]->data = v[i]->data;
         c[v[i]->key]++;
     }
 
-    // printStruct(s, n);
-    // printf("\n");
+#if DEBUG
+    printf("\n");
+    printVector(c, max);
+#endif
 
-    memcpy(&v, &s, n);
+    for (int i = 0; i < max; i++)
+    {
+        t = c[i];
+        c[i] = sum;
+        sum += t;
+    }
 
-    printStruct(v, n);
+#if DEBUG
+    printf("\n");
+    printVector(c, max);
+    printf("\n");
+#endif
+
+    for (i = 0; i < n; i++)
+    {
+        s[c[v[i]->key]] = v[i];
+        c[v[i]->key]++;
+    }
+
+#if DEBUG
+    printStruct(s, n);
+    printf("\n");
+#endif
+
+    memcpy(v, s, n * sizeof(V));
 }
 
 int main()
@@ -162,7 +139,7 @@ int main()
 
     counting_sort(vector, n);
 
-    // printStruct(vector, n);
+    printStruct(vector, n);
 
     return EXIT_SUCCESS;
 }
