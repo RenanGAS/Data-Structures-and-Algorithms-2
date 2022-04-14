@@ -70,11 +70,18 @@ int binarySearch(int *v, int e, int d, int x)
         {
             return binarySearch(v, e, m - 1, x);
         }
-        
+
         return binarySearch(v, m + 1, d, x);
     }
 
     return -1;
+}
+
+int binarySearch_wrapper(int *v, int n, int x)
+{
+    int res = binarySearch(v, 0, n - 1, x);
+
+    return res;
 }
 
 int main()
@@ -87,7 +94,7 @@ int main()
 
     printVector(v, n);
 
-    int pos = binarySearch(v, 0, n - 1, x);
+    int pos = binarySearch_wrapper(v, n, x);
 
     if (pos != -1)
     {
