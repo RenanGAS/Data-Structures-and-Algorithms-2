@@ -66,17 +66,12 @@ int binarySearch(int *v, int e, int d, int x)
         {
             return m;
         }
-        else
+        else if (v[m] > x)
         {
-            if (v[m] > x)
-            {
-                return binarySearch(v, e, m - 1, x);
-            }
-            else
-            {
-                return binarySearch(v, m + 1, d, x);
-            }
+            return binarySearch(v, e, m - 1, x);
         }
+        
+        return binarySearch(v, m + 1, d, x);
     }
 
     return -1;
