@@ -54,7 +54,7 @@ void quickSort(int *v, int e, int d)
     }
 }
 
-int binarySearch(int *v, int e, int d, int x)
+static int binarySearch(int *v, int e, int d, int x)
 {
     int m = 0;
 
