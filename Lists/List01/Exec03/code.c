@@ -1,6 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define EXE 0
+
+int recursiveMDC(int x, int y)
+{
+    if (x >= y && x % y == 0)
+    {
+        return y;
+    }
+    else if (x < y)
+    {
+        return recursiveMDC(y, x);
+    }
+
+    return recursiveMDC(y, x % y);
+}
+
 int iterativeMDC(int x, int y)
 {
     int i, aux;
@@ -22,7 +38,13 @@ int main(int argc, char **argv)
 {
     int x = atoi(argv[1]), y = atoi(argv[2]);
 
+#if EXE == 0
+    int res = recursiveMDC(x, y);
+#endif
+
+#if EXE == 1
     int res = iterativeMDC(x, y);
+#endif
 
     printf("\nO MDC de %d e %d é %d.\n\n", x, y, res);
 
