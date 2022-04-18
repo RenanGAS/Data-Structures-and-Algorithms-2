@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "search.h"
 #include <stdlib.h>
 
 void printVector(int *vector, int size)
@@ -54,34 +55,6 @@ void quickSort(int *v, int e, int d)
     }
 }
 
-int binarySearch(int *v, int e, int d, int x)
-{
-    int m = 0;
-
-    if (e <= d)
-    {
-        m = (e + d) / 2;
-
-        if (v[m] == x)
-        {
-            return m;
-        }
-        else
-        {
-            if (v[m] > x)
-            {
-                return binarySearch(v, e, m - 1, x);
-            }
-            else
-            {
-                return binarySearch(v, m + 1, d, x);
-            }
-        }
-    }
-
-    return -1;
-}
-
 int main()
 {
     int n = 10;
@@ -92,7 +65,8 @@ int main()
 
     printVector(v, n);
 
-    int pos = binarySearch(v, 0, n - 1, x);
+    int pos = binarySearch_wrapper(v, n, x);
+    // int pos = linearSearch(v, n, x);
 
     if (pos != -1)
     {
