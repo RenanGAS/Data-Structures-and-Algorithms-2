@@ -3,7 +3,9 @@
 #include <string.h>
 #include <math.h>
 
-#define A 1
+#define A 0
+
+#define B 1
 
 #if A
 
@@ -19,6 +21,40 @@ unsigned int string_hash(char *string, int M)
     }
 
     pos = ac_aux % M;
+
+    return pos;
+}
+
+#endif
+
+
+#if B
+
+unsigned int horner_method(char *string, int K, int i, unsigned int p)
+{
+    int aux = 0;
+
+    if (i == strlen(string))
+    {
+        return p;
+    }
+
+    aux = string[i];
+
+    p = p * K + aux;
+
+    i++;
+
+    horner_method(string, K, i, p);
+}
+
+unsigned int string_hash(char *string, int M)
+{
+    int K = 31, pos = 0, res = 0;
+
+    res = horner_method(string, K, 1, string[0]);
+
+    pos = res % M;
 
     return pos;
 }
