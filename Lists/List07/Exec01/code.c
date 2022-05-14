@@ -7,6 +7,8 @@
 
 #define B 1
 
+#define C 1
+
 #if A
 
 unsigned int string_hash(char *string, int M)
@@ -26,7 +28,6 @@ unsigned int string_hash(char *string, int M)
 }
 
 #endif
-
 
 #if B
 
@@ -61,6 +62,40 @@ unsigned int string_hash(char *string, int M)
 
 #endif
 
+#if C
+
+void fa(int n)
+{
+    int i, countSoma = 0, countMult = 0, cpyN = n;
+
+    for (i = 0; i < n; i++)
+    {
+        countSoma++;
+        countMult += cpyN;
+        cpyN--;
+    }
+
+    printf("\n\nAlgoritmo simples:\n");
+    printf("\nNúmero de somas = %d, número de multiplicações = %d\n\n", countSoma, countMult);
+}
+
+void fb(int n)
+{
+    int i = 1, countSoma = 0, countMult = 0;
+
+    while (i != n)
+    {
+        countSoma++;
+        countMult++;
+        i++;
+    }
+    
+    printf("\nMétodo de Horner:\n");
+    printf("\nNúmero de somas = %d, número de multiplicações = %d\n\n", countSoma, countMult);
+}
+
+#endif
+
 int main()
 {
     char string[4] = "ABC";
@@ -68,6 +103,23 @@ int main()
     int r = string_hash(string, 37);
 
     printf("\nPosição de \"%s\" na Hash Table = %d\n\n", string, r);
+#if C
+    printf("\n\nPara n = 5:\n");
+    fa(5);
+    fb(5);
+
+    printf("\n\nPara n = 10:\n");
+    fa(10);
+    fb(10);
+
+    printf("\n\nPara n = 20:\n");
+    fa(20);
+    fb(20);
+
+    printf("\n\nPara n = 100:\n");
+    fa(100);
+    fb(100);
+#endif
 
     return EXIT_SUCCESS;
 }
