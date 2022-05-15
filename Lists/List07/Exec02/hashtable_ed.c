@@ -3,6 +3,62 @@
 #include "ilist.h"
 #include "hashtable_ed.h"
 
+// Funções Auxiliares
+
+static int sendFirst(THED *TH)
+{
+    int i;
+    for (i = 0; i < TH->m; i++)
+    {
+        if (TH->t[i]->tam > 0)
+        {
+            return TH->t[i]->nos[0].chave;
+        }
+    }
+}
+
+int max(THED *TH)
+{
+    int max = sendFirst(TH), i, j;
+
+    for (i = 0; i < TH->m; i++)
+    {
+        for (j = 0; j < TH->t[i]->tam; j++)
+        {
+            INOH *no_elem = ILIST_Endereco(TH->t[i], j);
+
+            if (no_elem->chave > max)
+            {
+                max = no_elem->chave;
+            }
+        }
+    }
+
+    return max;
+}
+
+int min(THED *TH)
+{
+    int min = sendFirst(TH), i, j;
+
+    for (i = 0; i < TH->m; i++)
+    {
+        for (j = 0; j < TH->t[i]->tam; j++)
+        {
+            INOH *no_elem = ILIST_Endereco(TH->t[i], j);
+
+            if (no_elem->chave < min)
+            {
+                min = no_elem->chave;
+            }
+        }
+    }
+
+    return min;
+}
+
+// Funções Principais
+
 int THED_Hash(THED *TH, int chave)
 {
     return chave % TH->m;

@@ -16,3 +16,5 @@ void THED_Imprimir(THED* HT);
 size_t THED_N(THED* HT);
 ILIST* THED_Chaves(THED* HT);
 void THED_Destruir(THED* HT);
+int max(THED* HT);
+int min(THED* HT);
