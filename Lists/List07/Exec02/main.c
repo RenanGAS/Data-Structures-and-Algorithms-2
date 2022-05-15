@@ -25,6 +25,12 @@ int main(int argc, char** argv){
     THED_Inserir(ht, 10, 5);
     THED_Inserir(ht, 11, 7);
     THED_Inserir(ht, 13, 0);
+    THED_Inserir(ht, 5, 2);
+    THED_Inserir(ht, 9, 1);
+    THED_Inserir(ht, 7, 5);
+    THED_Inserir(ht, 4, 0);
+    THED_Inserir(ht, 0, 5);
+    THED_Inserir(ht, 14, 0);
     THED_Imprimir(ht);
 
     int chave_buscar;
@@ -36,6 +42,14 @@ int main(int argc, char** argv){
     THED_Remover(ht, chave_buscar);
     printf("\nO elemento de chave %d foi removido\n", chave_buscar);
     THED_Imprimir(ht);
+
+    int max_chave, min_chave = 0;
+
+    max_chave = max(ht);
+    printf("\nA maior chave da tabela é %d\n", max_chave);
+
+    min_chave = min(ht);
+    printf("\nA menor chave da tabela é %d\n", min_chave);
 
     // ILIST *chaves = THED_Chaves(ht);
     // ILIST_Imprimir(chaves, 0);
