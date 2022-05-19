@@ -43,6 +43,28 @@ int main(int argc, char** argv){
     printf("\nO elemento de chave %d foi removido\n", chave_buscar);
     THED_Imprimir(ht);
 
+    // Testes Min e Max
+
+    THED_Remover(ht, 14);
+    printf("\nO elemento de chave %d foi removido\n", 14);
+
+    THED_Remover(ht, 0);
+    printf("\nO elemento de chave %d foi removido\n", 0);
+
+    THED_Imprimir(ht);
+
+    // printf("\ndiffMax: %d\n\n", ht->diffMax);
+    // printf("\ndiffMin: %d\n\n", ht->diffMin);
+
+    // THED_Remover(ht, 13);
+    // printf("\nO elemento de chave %d foi removido\n", 13);
+
+    // THED_Remover(ht, 4);
+    // printf("\nO elemento de chave %d foi removido\n", 4);
+
+    // printf("\ndiffMax: %d\n\n", ht->diffMax);
+    // printf("\ndiffMin: %d\n\n", ht->diffMin);
+
     int max_chave, min_chave = 0;
 
     max_chave = max(ht);
