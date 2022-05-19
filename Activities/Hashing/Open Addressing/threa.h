@@ -19,7 +19,7 @@ typedef struct ELEM
 
 typedef struct THEA
 {
-    size_t m;
+    size_t m, n;
     ELEM *t;
 } THEA;
 
