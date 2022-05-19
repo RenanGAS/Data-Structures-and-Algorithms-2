@@ -5,6 +5,7 @@
 typedef struct THED {
     ILIST** t;
     int m, n;
+    int min, max, diffMin, diffMax, flag;
 } THED;
 
 int THED_Hash(THED* HT, int chave);

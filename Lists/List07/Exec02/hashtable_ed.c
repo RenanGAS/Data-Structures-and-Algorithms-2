@@ -3,7 +3,13 @@
 #include "ilist.h"
 #include "hashtable_ed.h"
 
+#define B 0
+
+#define C 1
+
 // Funções Auxiliares
+
+#if B
 
 static int sendFirst(THED *TH)
 {
@@ -57,6 +63,22 @@ int min(THED *TH)
     return min;
 }
 
+#endif
+
+#if C
+
+int min(THED *TH)
+{
+    return TH->min;
+}
+
+int max(THED *TH)
+{
+    return TH->max;
+}
+
+#endif
+
 // Funções Principais
 
 int THED_Hash(THED *TH, int chave)
@@ -72,6 +94,9 @@ THED *THED_Criar(int m, int alloc_step)
 
     nova_th->m = m;
     nova_th->n = 0;
+    nova_th->diffMin = 0;
+    nova_th->diffMax = 0;
+    nova_th->flag = 0;
     nova_th->t = malloc(sizeof(ILIST *) * m);
 
     for (i = 0; i < m; i++)
@@ -87,6 +112,24 @@ void THED_Inserir(THED *TH, int chave, int valor)
     int pos = THED_Hash(TH, chave);
 
     int boolValue = ILIST_Inserir(TH->t[pos], chave, valor);
+
+    if (!TH->flag)
+    {
+        TH->min = chave;
+        TH->max = chave;
+        TH->flag = 1;
+    }
+
+    if (TH->max < chave)
+    {
+        TH->diffMax = chave - TH->max;
+        TH->max = chave;
+    }
+    else if (TH->min > chave)
+    {
+        TH->diffMin = TH->min - chave;
+        TH->min = chave;
+    }
 }
 
 void THED_Remover(THED *TH, int chave)
@@ -94,6 +137,15 @@ void THED_Remover(THED *TH, int chave)
     int pos = THED_Hash(TH, chave);
 
     int boolValue = ILIST_Remover(TH->t[pos], chave);
+
+    if (TH->max == chave)
+    {
+        TH->max -= TH->diffMax;
+    }
+    else if (TH->min == chave)
+    {
+        TH->min += TH->diffMin;
+    }
 }
 
 INOH *THED_Buscar(THED *TH, int chave)
