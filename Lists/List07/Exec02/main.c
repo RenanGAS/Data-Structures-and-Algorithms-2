@@ -45,7 +45,7 @@ int main(int argc, char** argv){
 
     // Testes Min e Max
 
-    THED_Remover(ht, 14);
+    /* THED_Remover(ht, 14);
     printf("\nO elemento de chave %d foi removido\n", 14);
 
     THED_Remover(ht, 0);
@@ -53,17 +53,17 @@ int main(int argc, char** argv){
 
     THED_Imprimir(ht);
 
-    // printf("\ndiffMax: %d\n\n", ht->diffMax);
-    // printf("\ndiffMin: %d\n\n", ht->diffMin);
+    printf("\ndiffMax: %d\n\n", ht->diffMax);
+    printf("\ndiffMin: %d\n\n", ht->diffMin);
 
-    // THED_Remover(ht, 13);
-    // printf("\nO elemento de chave %d foi removido\n", 13);
+    THED_Remover(ht, 13);
+    printf("\nO elemento de chave %d foi removido\n", 13);
 
-    // THED_Remover(ht, 4);
-    // printf("\nO elemento de chave %d foi removido\n", 4);
+    THED_Remover(ht, 4);
+    printf("\nO elemento de chave %d foi removido\n", 4);
 
-    // printf("\ndiffMax: %d\n\n", ht->diffMax);
-    // printf("\ndiffMin: %d\n\n", ht->diffMin);
+    printf("\ndiffMax: %d\n\n", ht->diffMax);
+    printf("\ndiffMin: %d\n\n", ht->diffMin);
 
     int max_chave, min_chave = 0;
 
@@ -71,7 +71,7 @@ int main(int argc, char** argv){
     printf("\nA maior chave da tabela é %d\n", max_chave);
 
     min_chave = min(ht);
-    printf("\nA menor chave da tabela é %d\n", min_chave);
+    printf("\nA menor chave da tabela é %d\n", min_chave); */
 
     // ILIST *chaves = THED_Chaves(ht);
     // ILIST_Imprimir(chaves, 0);
