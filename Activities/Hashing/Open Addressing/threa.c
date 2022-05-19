@@ -38,6 +38,23 @@ static void THEA_Redimensionar(THEA* th, int novo_m){
     free(antiga);
 }
 
+int THEA_Buscar(THEA *th, int chave){
+    int h, h_inicial, k;
+    k = 0;
+    h = THEA_Hash(th, chave, k);
+    h_inicial = h;
+
+    while(th->t[h].estado != E_LIVRE){
+        if((th->t[h].estado == E_OCUPADO) && (th->t[h].chave == chave))
+            return h;
+        k++;
+        h = THEA_Hash(th, chave, k);
+        if(h_inicial == h)
+            return -1;
+    }
+    return -1;
+}
+
 int THEA_Inserir(THEA *th, int chave, int valor)
 {
     int h, k, h_inicial;
@@ -49,8 +66,8 @@ int THEA_Inserir(THEA *th, int chave, int valor)
         k = 0;
 
         if(th->n > (th->m / 2)){
-            printf("tabela redimensionada de m= %d para %d.\n", th->m, th->m*2);
-            printf("(n = %d)\n", th->n);
+            printf("tabela redimensionada de m= %ld para %ld.\n", th->m, th->m*2);
+            printf("(n = %ld)\n", th->n);
             THEA_Redimensionar(th, th->m*2);
         }
 
@@ -84,23 +101,6 @@ int THEA_Imprimir(THEA *th)
     }
 
     printf("\n");
-}
-
-int THEA_Buscar(THEA *th, int chave){
-    int h, h_inicial, k;
-    k = 0;
-    h = THEA_Hash(th, chave, k);
-    h_inicial = h;
-
-    while(th->t[h].estado != E_LIVRE){
-        if((th->t[h].estado == E_OCUPADO) && (th->t[h].chave == chave))
-            return h;
-        k++;
-        h = THEA_Hash(th, chave, k);
-        if(h_inicial == h)
-            return -1;
-    }
-    return -1;
 }
 
 void THEA_Remover(THEA* th, int chave){
