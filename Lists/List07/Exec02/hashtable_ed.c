@@ -88,7 +88,7 @@ int THED_Hash(THED *TH, int chave)
 
 static void THED_Redimensionar(THED *HT, float c, size_t reserva)
 {
-    if (c <= 0.5)
+    if (((float) HT->n / HT->m) <= c)
     {
         return;
     }
@@ -107,6 +107,7 @@ static void THED_Redimensionar(THED *HT, float c, size_t reserva)
 
     HT->t = new_t;
     HT->m = new_m;
+    HT->n = 0;
 
     for (int i = 0; i < old_m; i++)
     {
@@ -120,7 +121,7 @@ static void THED_Redimensionar(THED *HT, float c, size_t reserva)
     }
 }
 
-THED *THED_Criar(int m, int alloc_step)
+THED *THED_Criar(int m, int alloc_step, float c)
 {
     int i;
     THED *nova_th;
@@ -131,6 +132,7 @@ THED *THED_Criar(int m, int alloc_step)
     nova_th->diffMin = 0;
     nova_th->diffMax = 0;
     nova_th->flag = 0;
+    nova_th->c = c;
     nova_th->t = malloc(sizeof(ILIST *) * m);
 
     for (i = 0; i < m; i++)
@@ -176,11 +178,9 @@ void THED_Inserir(THED *TH, int chave, int valor)
 
 #endif
 
-    float c = (float) TH->n / TH->m;
-
     size_t reserva = 5;
-
-    THED_Redimensionar(TH, c, reserva);
+    
+    THED_Redimensionar(TH, TH->c, reserva);
 }
 
 void THED_Remover(THED *TH, int chave)
@@ -233,6 +233,7 @@ void THED_Imprimir(THED *TH)
         printf("\n");
     }
 
+    printf("\nNúmero de Elementos: %lu\n\n", TH->n);
     printf("===============\n");
 }
 
