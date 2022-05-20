@@ -86,16 +86,12 @@ int THED_Hash(THED *TH, int chave)
     return chave % TH->m;
 }
 
-static void THED_Redimensionar(THED *HT, size_t c, size_t reserva)
+static void THED_Redimensionar(THED *HT, float c, size_t reserva)
 {
     if (c <= 0.5)
     {
-        printf("\nc = %lu\n\n", c);
         return;
     }
-
-    ILIST **old_t;
-    int old_m;
 
     int new_m = (HT->m * 2) + reserva;
 
@@ -106,13 +102,13 @@ static void THED_Redimensionar(THED *HT, size_t c, size_t reserva)
         new_t[i] = malloc(sizeof(ILIST));
     }
 
-    old_t = HT->t;
-    old_m = HT->m;
+    ILIST **old_t = HT->t;
+    int old_m = HT->m;
 
     HT->t = new_t;
     HT->m = new_m;
 
-    for (int i = 0; i < new_m; i++)
+    for (int i = 0; i < old_m; i++)
     {
         if (old_t[i]->tam > 0)
         {
@@ -180,7 +176,7 @@ void THED_Inserir(THED *TH, int chave, int valor)
 
 #endif
 
-    size_t c = TH->n / TH->m;
+    float c = (float) TH->n / TH->m;
 
     size_t reserva = 5;
 
