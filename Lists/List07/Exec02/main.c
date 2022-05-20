@@ -5,9 +5,10 @@
 #include "ilist.h"
 #include "hashtable_ed.h"
 
-int main(int argc, char** argv){
-    
-    int n, m, i, chave;    
+int main(int argc, char **argv)
+{
+
+    int n, m, i, chave;
 
     int seed = 0;
 
@@ -16,28 +17,52 @@ int main(int argc, char** argv){
 
     srand(seed);
 
-    THED* ht;
+    THED *ht;
     ILIST *chaves = NULL;
-    ht = THED_Criar(m, 10);
+    ht = THED_Criar(m, 10, 3);
 
     // teste 1
 
-    THED_Inserir(ht, 10, 5);
-    THED_Inserir(ht, 11, 7);
-    THED_Inserir(ht, 13, 0);
-    THED_Inserir(ht, 5, 2);
-    THED_Inserir(ht, 9, 1);
-    THED_Inserir(ht, 7, 5);
-    THED_Inserir(ht, 4, 0);
-    THED_Inserir(ht, 0, 5);
-    THED_Inserir(ht, 14, 0);
+    // for (int i = 0; i < n; i++)
+    // {
+    //     chave = rand() % 100;
+    //     THED_Inserir(ht, chave, rand() % 10);
+    // }
+    
+    THED_Inserir(ht, 0, 4);
+    THED_Inserir(ht, 1, 4);
+    THED_Inserir(ht, 2, 4);
+    THED_Inserir(ht, 3, 4);
+    THED_Inserir(ht, 4, 4);
+    THED_Inserir(ht, 5, 4);
+    THED_Inserir(ht, 6, 4);
+    THED_Inserir(ht, 7, 4);
+    THED_Inserir(ht, 8, 4);
+    THED_Inserir(ht, 9, 4);
+    THED_Inserir(ht, 10, 4);
+    THED_Inserir(ht, 11, 4);
+    THED_Inserir(ht, 12, 4);
+    THED_Inserir(ht, 13, 4);
+    THED_Inserir(ht, 14, 4);
+    THED_Inserir(ht, 15, 4);
+    THED_Inserir(ht, 16, 4);
+    THED_Inserir(ht, 17, 4);
+    THED_Inserir(ht, 18, 4);
+    THED_Inserir(ht, 19, 4);
+    THED_Inserir(ht, 20, 4);
+    THED_Inserir(ht, 21, 4);
+
     THED_Imprimir(ht);
 
     int chave_buscar;
     chave_buscar = 11;
-    INOH* no_elem;
+    INOH *no_elem;
     no_elem = THED_Buscar(ht, chave_buscar);
-    printf("\nResultado da busca pela chave %d: %d->%d\n", chave_buscar, no_elem->chave, no_elem->valor);
+
+    if (no_elem != NULL)
+    {
+        printf("\nResultado da busca pela chave %d: %d->%d\n", chave_buscar, no_elem->chave, no_elem->valor);
+    }
 
     THED_Remover(ht, chave_buscar);
     printf("\nO elemento de chave %d foi removido\n", chave_buscar);
