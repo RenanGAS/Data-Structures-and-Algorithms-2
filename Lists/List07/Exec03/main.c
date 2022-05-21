@@ -9,7 +9,7 @@ int main(int argc, char** argv){
     
     int n, m, i, chave;    
 
-    int seed = 5;
+    int seed = 42;
 
     n = argc > 1 ? atoi(argv[1]) : 10;
     m = argc > 2 ? atoi(argv[2]) : n / 2;
