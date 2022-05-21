@@ -18,6 +18,12 @@ int main(int argc, char** argv){
 
     THED_Imprimir(ht);
 
+    int max_size = THED_MaisLonga(ht);
+    int min_size = THED_MaisCurta(ht);
+    float med_size = THED_TamMedio(ht);
+
+    printf("\nComprimento da maior lista: %d\n\nComprimento da menor lista: %d\n\nComprimento médio das listas: %.2f\n\n", max_size, min_size, med_size);
+
     // srand(seed);
 
     // THED* ht;
