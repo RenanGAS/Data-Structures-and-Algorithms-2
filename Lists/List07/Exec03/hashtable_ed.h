@@ -17,3 +17,6 @@ size_t THED_N(THED* HT);
 ILIST* THED_Chaves(THED* HT);
 void THED_Destruir(THED* HT);
 THED* inserir_n_aleatorios(int n, int m, int seed);
+int THED_MaisLonga(THED* TH);
+int THED_MaisCurta(THED* TH);
+float THED_TamMedio(THED* TH);

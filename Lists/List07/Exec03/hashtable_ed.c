@@ -3,7 +3,6 @@
 #include "ilist.h"
 #include "hashtable_ed.h"
 
-
 int THED_Hash(THED *HT, int chave)
 {
     return chave % HT->m;
@@ -95,7 +94,7 @@ THED *inserir_n_aleatorios(int n, int m, int seed)
 
     new_ht->m = m;
     new_ht->n = 0;
-    new_ht->t = malloc(m * sizeof(ILIST*));
+    new_ht->t = malloc(m * sizeof(ILIST *));
 
     for (i = 0; i < m; i++)
     {
@@ -111,4 +110,52 @@ THED *inserir_n_aleatorios(int n, int m, int seed)
     }
 
     return new_ht;
+}
+
+int THED_MaisLonga(THED *TH)
+{
+    int i;
+
+    int max_size = TH->t[0]->tam;
+
+    for (i = 1; i < TH->m; i++)
+    {
+        if (TH->t[i]->tam > max_size)
+        {
+            max_size = TH->t[i]->tam;
+        }
+    }
+
+    return max_size;
+}
+
+int THED_MaisCurta(THED *TH)
+{
+    int i;
+
+    int min_size = TH->t[0]->tam;
+
+    for (i = 1; i < TH->m; i++)
+    {
+        if (TH->t[i]->tam < min_size)
+        {
+            min_size = TH->t[i]->tam;
+        }
+    }
+
+    return min_size;
+}
+
+float THED_TamMedio(THED *TH)
+{
+    int i;
+
+    float sum_sizes = 0;
+
+    for (i = 0; i < TH->m; i++)
+    {
+        sum_sizes += TH->t[i]->tam;
+    }
+
+    return (sum_sizes / TH->m);
 }
