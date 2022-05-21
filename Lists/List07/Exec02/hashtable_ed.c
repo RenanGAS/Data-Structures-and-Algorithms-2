@@ -93,15 +93,13 @@ static void THED_Redimensionar(THED *HT, float c, size_t reserva)
         return;
     }
 
-    THED_Imprimir(HT);
-
     int new_m = (HT->m * 2) + reserva;
 
     ILIST **new_t = malloc(new_m * sizeof(ILIST *));
 
     for (int i = 0; i < new_m; i++)
     {
-        new_t[i] = malloc(sizeof(ILIST));
+        new_t[i] = ILIST_Criar(10);
     }
 
     ILIST **old_t = HT->t;
@@ -111,19 +109,10 @@ static void THED_Redimensionar(THED *HT, float c, size_t reserva)
     HT->m = new_m;
     HT->n = 0;
 
-    printf("\nold_m = %lu\n", old_m);
-
     for (int i = 0; i < old_m; i++)
     {
-        printf("\ntam_lista[%d] = %d\n", i, old_t[i]->tam);
-
         for (int j = 0; j < old_t[i]->tam; j++)
         {
-            printf("\nn = %lu\n", HT->n);  
-
-            printf("\nchave = %d\n", old_t[i]->nos[j].chave); 
-            printf("\nvalor = %d\n", old_t[i]->nos[j].valor); 
-
             THED_Inserir(HT, old_t[i]->nos[j].chave, old_t[i]->nos[j].valor);
         }
     }
@@ -158,11 +147,7 @@ void THED_Inserir(THED *TH, int chave, int valor)
 
     int list_size = ILIST_Tamanho(TH->t[pos]);
 
-    printf("\npos = %d\n", pos);
-
     int boolValue = ILIST_Inserir(TH->t[pos], chave, valor);
-
-    printf("\nboolValue = %d\n", boolValue);
 
     if (list_size != ILIST_Tamanho(TH->t[pos]))
     {
