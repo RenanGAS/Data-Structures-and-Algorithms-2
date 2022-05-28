@@ -28,13 +28,21 @@ int main(int argc, char** argv){
         THEA_Inserir(ht, chave, chave + (rand() % 10));
     }
 
+    // THEA_Remover(ht, 0);
+    // THEA_Remover(ht, 80);
+    // THEA_Remover(ht, 3);
+    // THEA_Remover(ht, 11);
+
     THEA_Imprimir(ht);
 
-    int minKey, maxKey;
+    // int minKey, maxKey;
 
-    minKey = min(ht);
-    maxKey = max(ht);
+    // minKey = ht->minK;
+    // maxKey = ht->maxK;
 
-    printf("\nValor da chave mínima: %d\n", minKey);
-    printf("\nValor da chave máxima: %d\n", maxKey);
+    // // minKey = min(ht);
+    // // maxKey = max(ht);
+
+    // printf("\nValor da chave mínima: %d\n", minKey);
+    // printf("\nValor da chave máxima: %d\n", maxKey);
 }
