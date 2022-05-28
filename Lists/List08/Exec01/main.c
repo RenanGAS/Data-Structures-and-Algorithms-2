@@ -27,4 +27,14 @@ int main(int argc, char** argv){
         chave = (rand() % n*10);
         THEA_Inserir(ht, chave, chave + (rand() % 10));
     }
+
+    THEA_Imprimir(ht);
+
+    int minKey, maxKey;
+
+    minKey = min(ht);
+    maxKey = max(ht);
+
+    printf("\nValor da chave mínima: %d\n", minKey);
+    printf("\nValor da chave máxima: %d\n", maxKey);
 }
