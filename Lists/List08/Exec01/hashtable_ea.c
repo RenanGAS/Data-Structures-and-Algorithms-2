@@ -1,5 +1,63 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "hashtable_ea.h"
+
+int firstKey(THEA *TH)
+{
+    for (int i = 0; i < TH->m; i++)
+    {
+        if (TH->TH[i].estado == E_OCUPADO)
+        {
+            return TH->TH[i].chave;
+        }
+    }
+
+    return -1;
+}
+
+int min(THEA *TH)
+{
+    int i, minKey;
+
+    minKey = firstKey(TH);
+
+    if (minKey == -1)
+    {
+        return minKey;
+    }
+
+    for (i = 0; i < TH->m; i++)
+    {
+        if (TH->TH[i].estado == E_OCUPADO && TH->TH[i].chave < minKey)
+        {
+            minKey = TH->TH[i].chave;
+        }
+    }
+
+    return minKey;
+}
+
+int max(THEA *TH)
+{
+    int i, maxKey;
+
+    maxKey = firstKey(TH);
+
+    if (maxKey == -1)
+    {
+        return maxKey;
+    }
+
+    for (i = 0; i < TH->m; i++)
+    {
+        if (TH->TH[i].estado == E_OCUPADO && TH->TH[i].chave > maxKey)
+        {
+            maxKey = TH->TH[i].chave;
+        }
+    }
+
+    return maxKey;
+}
 
 int THEA_Hash(THEA *TH, int chave, int k)
 {
@@ -68,7 +126,7 @@ int THEA_Buscar(THEA *TH, int chave)
         {
             return hash;
         }
-        
+
         k++;
         hash = THEA_Hash(TH, chave, k);
 
@@ -91,4 +149,24 @@ void THEA_Remover(THEA *TH, int chave)
     {
         TH->TH[pos].estado = E_APAGADO;
     }
+}
+
+void THEA_Imprimir(THEA *TH)
+{
+    printf("\n");
+
+    for (int i = 0; i < TH->m; i++)
+    {
+        if (TH->TH[i].estado == E_OCUPADO)
+        {
+            printf("\n%d: %d | %d | %d\n", i, TH->TH[i].chave, TH->TH[i].valor, TH->TH[i].estado);
+        }
+        else
+        {
+            printf("\n%d:  |  | %d\n", i, TH->TH[i].estado);
+        }
+        
+    }
+
+    printf("\n");
 }
