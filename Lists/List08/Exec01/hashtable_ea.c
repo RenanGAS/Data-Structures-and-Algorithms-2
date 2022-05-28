@@ -69,6 +69,13 @@ THEA *THEA_Criar(int m)
     THEA *new_ht = malloc(sizeof(THEA));
 
     new_ht->m = m;
+    new_ht->minVK = malloc(10 * sizeof(int));
+    new_ht->maxVK = malloc(10 * sizeof(int));
+    new_ht->minK = 0;
+    new_ht->maxK = 0;
+    new_ht->countMin = 0;
+    new_ht->countMax = 0;
+    new_ht->flag = 0;
     new_ht->TH = malloc(m * sizeof(ELEM));
 
     for (int i = 0; i < m; i++)
@@ -108,6 +115,38 @@ int THEA_Inserir(THEA *TH, int chave, int valor)
     TH->TH[hash].chave = chave;
     TH->TH[hash].valor = valor;
     TH->TH[hash].estado = E_OCUPADO;
+
+    if (!TH->flag)
+    {
+        TH->maxK = chave;
+        TH->maxVK[TH->countMax] = chave;
+        TH->countMax++;
+        TH->minK = chave;
+        TH->minVK[TH->countMin] = chave;
+        TH->countMin++;
+        TH->flag = 1;
+    }
+    else if (chave > TH->maxK)
+    {
+        TH->maxK = chave;
+
+        if (TH->countMax < 10)
+        {
+            TH->maxVK[TH->countMax] = chave;
+            TH->countMax++;
+        }
+        
+    }
+    else if (chave < TH->minK)
+    {
+        TH->minK = chave;
+
+        if (TH->countMin < 10)
+        {
+            TH->minVK[TH->countMin] = chave;
+            TH->countMin++;
+        }
+    } 
 
     return hash;
 }
@@ -149,6 +188,19 @@ void THEA_Remover(THEA *TH, int chave)
     {
         TH->TH[pos].estado = E_APAGADO;
     }
+
+    if (chave == TH->maxK)
+    {
+        TH->maxK = TH->maxVK[TH->countMax - 2];
+        TH->countMax--;
+    }
+    
+    if (chave == TH->minK)
+    {
+        TH->minK = TH->minVK[TH->countMin - 2];
+        TH->countMin--;
+    }
+    
 }
 
 void THEA_Imprimir(THEA *TH)

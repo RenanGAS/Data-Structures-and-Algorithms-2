@@ -18,6 +18,7 @@ typedef struct THEA
 {
     int m;
     ELEM *TH;
+    int minK, maxK, *minVK, *maxVK, countMin, countMax, flag;
 } THEA;
 
 int THEA_Hash(THEA *TH, int chave, int k);
