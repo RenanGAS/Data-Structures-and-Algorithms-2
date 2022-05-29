@@ -16,7 +16,7 @@ typedef struct ELEM
 
 typedef struct THEA
 {
-    int m;
+    int m, n;
     ELEM *TH;
     int minK, maxK, *minVK, *maxVK, countMin, countMax, flag;
 } THEA;

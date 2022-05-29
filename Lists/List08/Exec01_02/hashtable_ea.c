@@ -125,6 +125,7 @@ THEA *THEA_Criar(int m)
     THEA *new_ht = malloc(sizeof(THEA));
 
     new_ht->m = m;
+    new_ht->n = 0;
     new_ht->minVK = malloc(10 * sizeof(int));
     new_ht->maxVK = malloc(10 * sizeof(int));
     new_ht->minK = 0;
@@ -166,6 +167,8 @@ int THEA_Inserir(THEA *TH, int chave, int valor)
                 return -1;
             }
         }
+
+        TH->n++;
     }
 
     TH->TH[hash].chave = chave;
@@ -244,6 +247,8 @@ void THEA_Remover(THEA *TH, int chave)
     {
         TH->TH[pos].estado = E_APAGADO;
     }
+
+    TH->n--;
 
     if (chave == TH->maxK)
     {
