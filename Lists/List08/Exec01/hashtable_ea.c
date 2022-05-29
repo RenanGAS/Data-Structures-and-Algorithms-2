@@ -2,6 +2,9 @@
 #include <stdio.h>
 #include "hashtable_ea.h"
 
+
+// Funções Auxiliares
+
 int firstKey(THEA *TH)
 {
     for (int i = 0; i < TH->m; i++)
@@ -58,6 +61,59 @@ int max(THEA *TH)
 
     return maxKey;
 }
+
+int THEA_ClusterMaximo(THEA* TH)
+{
+    int i, numMax = 1, countNum = 0;
+
+    for (i = 0; i < TH->m; i++)
+    {
+        if (TH->TH[i].estado == E_OCUPADO)
+        {
+            countNum++;
+        }
+        else
+        {
+            if (countNum > numMax)
+            {
+                numMax = countNum;
+            }
+            
+            countNum = 0;
+        }
+    }
+
+    return numMax;
+}
+
+float THEA_TamMedioClusters(THEA* TH)
+{
+    int i, sumSizes = 0, countNum = 0, countClusters = 0;
+
+    for (i = 0; i < TH->m; i++)
+    {
+        if (TH->TH[i].estado == E_OCUPADO)
+        {
+            countNum++;
+        }
+        else
+        {
+            if (countNum > 0)
+            {
+                countClusters++;
+            }
+        
+            sumSizes += countNum;
+            
+            countNum = 0;
+        }
+    }
+
+    return sumSizes / (float) countClusters;
+}
+
+
+// Funções Principais
 
 int THEA_Hash(THEA *TH, int chave, int k)
 {
