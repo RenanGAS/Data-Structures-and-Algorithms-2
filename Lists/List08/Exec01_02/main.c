@@ -11,7 +11,7 @@ int main(int argc, char** argv){
 
     int seed = 0;
 
-    n = argc > 1 ? atoi(argv[1]) : 10;
+    n = argc > 1 ? atoi(argv[1]) : 20;
 
     srand(seed);
 
@@ -40,6 +40,10 @@ int main(int argc, char** argv){
 
     printf("\nO tamanho do maior cluster é de %d\n", clusterMax);
     printf("\nO tamanho médio dos clusters é %.2f\n", clusterMed);
+
+    int numElem = ht->n;
+
+    printf("\nA tabela hash tem %d elementos\n", numElem);
 
     // int minKey, maxKey;
 
