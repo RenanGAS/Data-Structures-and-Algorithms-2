@@ -17,7 +17,7 @@ int main(int argc, char** argv){
 
     THEA* ht;
 
-    ht = THEA_Criar(20);
+    ht = THEA_Criar(25);
 
     THEA_Inserir(ht, 10, 5);
     THEA_Inserir(ht, 11, 7);
@@ -34,6 +34,12 @@ int main(int argc, char** argv){
     // THEA_Remover(ht, 11);
 
     THEA_Imprimir(ht);
+
+    int clusterMax = THEA_ClusterMaximo(ht);
+    float clusterMed = THEA_TamMedioClusters(ht);
+
+    printf("\nO tamanho do maior cluster é de %d\n", clusterMax);
+    printf("\nO tamanho médio dos clusters é %.2f\n", clusterMed);
 
     // int minKey, maxKey;
 
