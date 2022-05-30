@@ -45,6 +45,10 @@ int main(int argc, char** argv){
 
     printf("\nA tabela hash tem %d elementos\n", numElem);
 
+    float succeededSearchCost = THEA_CustoBemSucedida(ht);
+
+    printf("\nO custo de uma busca bem sucedida é de %f\n\n", succeededSearchCost);
+
     // int minKey, maxKey;
 
     // minKey = ht->minK;
