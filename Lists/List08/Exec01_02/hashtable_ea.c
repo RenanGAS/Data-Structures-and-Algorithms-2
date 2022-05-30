@@ -62,6 +62,11 @@ int max(THEA *TH)
     return maxKey;
 }
 
+float maxValue(float a, int b)
+{
+    return (a > b? a : b);   
+}
+
 int THEA_ClusterMaximo(THEA* TH)
 {
     int i, numMax = 1, countNum = 0;
@@ -110,6 +115,39 @@ float THEA_TamMedioClusters(THEA* TH)
     }
 
     return sumSizes / (float) countClusters;
+}
+
+float THEA_CustoBemSucedida(THEA *TH)
+{
+    int i, countCluster, *T, C = 0;
+    float summ = 0;
+
+    T = malloc(TH->m * sizeof(int));
+
+    for (i = 0; i < TH->m; i++)
+    {
+        if (TH->TH[i].estado == E_OCUPADO)
+        {
+            countCluster++;
+        }
+        else
+        {
+            if (countCluster > 0)
+            {
+                T[C] = countCluster;
+                C++;
+            }
+            
+            countCluster = 0;
+        }
+    }
+
+    for (i = 0; i < C; i++)
+    {
+        summ += maxValue(T[i] / (float) 2, 1);
+    }
+
+    return ((1 / (float) TH->n) * summ);
 }
 
 

@@ -29,5 +29,6 @@ void THEA_Remover(THEA *TH, int chave);
 void THEA_Imprimir(THEA *TH);
 int THEA_ClusterMaximo(THEA* TH);
 float THEA_TamMedioClusters(THEA* TH);
+float THEA_CustoBemSucedida(THEA *TH);
 int min(THEA *TH);
 int max(THEA *TH);
