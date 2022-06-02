@@ -7,24 +7,27 @@
 
 int main(int argc, char** argv){
     
-    int n, i, chave;    
+    int m, n, i, chave, *v;    
 
-    int seed = 0;
+    int seed = 42;
 
     n = argc > 1 ? atoi(argv[1]) : 20;
+    m = argc > 2 ? atoi(argv[2]) : 25;
 
-    srand(seed);
+    // srand(seed);
 
     THEA* ht;
 
-    ht = THEA_Criar(25);
+    ht = THEA_Criar(m);
 
-    THEA_Inserir(ht, 10, 5);
-    THEA_Inserir(ht, 11, 7);
-    THEA_Inserir(ht, 3, 7);
+    // THEA_Inserir(ht, 10, 5);
+    // THEA_Inserir(ht, 11, 7);
+    // THEA_Inserir(ht, 3, 7);
+
+    v = random_vector(n, 10 * n, seed);
 
     for(i = 0; i < n; i++){
-        chave = (rand() % n*10);
+        chave = v[i];
         THEA_Inserir(ht, chave, chave + (rand() % 10));
     }
 
@@ -35,19 +38,23 @@ int main(int argc, char** argv){
 
     THEA_Imprimir(ht);
 
-    int clusterMax = THEA_ClusterMaximo(ht);
+    printf("\nFator de Carga: %.2f\n", n / (float) m);
+
     float clusterMed = THEA_TamMedioClusters(ht);
 
-    printf("\nO tamanho do maior cluster é de %d\n", clusterMax);
-    printf("\nO tamanho médio dos clusters é %.2f\n", clusterMed);
-
-    int numElem = ht->n;
-
-    printf("\nA tabela hash tem %d elementos\n", numElem);
+    printf("\nCusto de uma busca Mal-Sucedida: %.2f\n", clusterMed);
 
     float succeededSearchCost = THEA_CustoBemSucedida(ht);
 
-    printf("\nO custo de uma busca bem sucedida é de %f\n\n", succeededSearchCost);
+    printf("\nCusto de uma busca Bem-Sucedida: %.2f\n", succeededSearchCost);
+
+    int clusterMax = THEA_ClusterMaximo(ht);
+
+    printf("\nMaior Cluster: %d\n", clusterMax);
+
+    // int numElem = ht->n;
+
+    // printf("\nA tabela hash tem %d elementos\n", numElem);
 
     // int minKey, maxKey;
 
