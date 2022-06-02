@@ -8,18 +8,19 @@
 int main(int argc, char **argv)
 {
 
-    int n, m, i, chave;
+    int n, m, c, i, chave;
 
     int seed = 0;
 
-    n = argc > 1 ? atoi(argv[1]) : 10;
-    m = argc > 2 ? atoi(argv[2]) : n >> 1;
+    n = argc > 1 ? atoi(argv[1]) : 70;
+    m = argc > 2 ? atoi(argv[2]) : 10;
+    c = argc > 3 ? atoi(argv[3]) : 4;
 
     srand(seed);
 
     THED *ht;
     ILIST *chaves = NULL;
-    ht = THED_Criar(m, 10, 2);
+    ht = THED_Criar(m, 10, c);
 
     // teste 1
 
