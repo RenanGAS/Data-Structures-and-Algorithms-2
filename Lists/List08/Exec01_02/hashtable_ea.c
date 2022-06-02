@@ -150,6 +150,22 @@ float THEA_CustoBemSucedida(THEA *TH)
     return ((1 / (float) TH->n) * summ);
 }
 
+int *random_vector(int n, int max, int seed)
+{
+    int *v, i; 
+
+    v = malloc(n * sizeof(int));
+
+    srand(seed);
+
+    for (i = 0; i < n; i++)
+    {
+        v[i] = rand() % max;
+    }
+
+    return v;
+}
+
 
 // Funções Principais
 
