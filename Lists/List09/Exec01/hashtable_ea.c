@@ -64,7 +64,7 @@ int THEA_Inserir(THEA *TH, int chave, int valor)
         printf("\nRedimensionamento:\n\n%d > %d / 2 .: M = %d -> M = %d\n", TH->n, TH->m, TH->m, TH->m * 2);
         THEA_Redimensionar(TH, TH->m * 2);
     }
-
+    
     hash = THEA_Buscar(TH, chave);
 
     if (hash < 0)
@@ -133,6 +133,12 @@ void THEA_Remover(THEA *TH, int chave)
     {
         TH->TH[pos].estado = E_APAGADO;
         TH->n--;
+
+        if (TH->n < TH->m / 5)
+        {
+            printf("\nRedimensionamento:\n\n%d < %d / 5 .: M = %d -> M = %d\n", TH->n, TH->m, TH->m, TH->m / 2);
+            THEA_Redimensionar(TH, TH->m / 2);
+        }
     }
 }
 
