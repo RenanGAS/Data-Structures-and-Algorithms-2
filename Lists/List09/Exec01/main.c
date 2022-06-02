@@ -20,10 +20,6 @@ int main(int argc, char** argv){
 
     ht = THEA_Criar(m);
 
-    THEA_Inserir(ht, 10, 5);
-    THEA_Inserir(ht, 11, 7);
-    THEA_Inserir(ht, 3, 7);
-
     for(i = 0; i < n; i++){
         chave = (rand() % n*10);
         THEA_Inserir(ht, chave, chave + (rand() % 10));
