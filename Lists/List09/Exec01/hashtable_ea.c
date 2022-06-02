@@ -3,6 +3,37 @@
 #include "hashtable_ea.h"
 
 
+int THEA_Inserir(THEA *TH, int chave, int valor);
+
+static void THEA_Redimensionar(THEA* TH, int m_novo)
+{
+    ELEM *old_table, *new_table;
+    int i, old_m, v;
+
+    new_table = malloc(m_novo * sizeof(ELEM));
+
+    for (i = 0; i < m_novo; i++)
+    {
+        new_table[i].estado = E_LIVRE;
+    }
+    
+    old_table = TH->TH;
+    old_m = TH->m;
+    TH->TH = new_table;
+    TH->m = m_novo;
+    TH->n = 0;
+
+    for (i = 0; i < old_m; i++)
+    {
+        if (old_table[i].estado == E_OCUPADO)
+        {
+            v = THEA_Inserir(TH, old_table[i].chave, old_table[i].valor);
+        }
+    }
+
+    free(old_table);
+}
+
 int THEA_Hash(THEA *TH, int chave, int k)
 {
     return ((chave % TH->m) + k) % TH->m;
@@ -27,6 +58,12 @@ THEA *THEA_Criar(int m)
 int THEA_Inserir(THEA *TH, int chave, int valor)
 {
     int k = 0, hash_init, hash;
+
+    if (TH->n > TH->m / 2)
+    {
+        printf("\nRedimensionamento:\n\n%d > %d / 2 .: M = %d -> M = %d\n", TH->n, TH->m, TH->m, TH->m * 2);
+        THEA_Redimensionar(TH, TH->m * 2);
+    }
 
     hash = THEA_Buscar(TH, chave);
 
@@ -95,9 +132,8 @@ void THEA_Remover(THEA *TH, int chave)
     if (pos != -1)
     {
         TH->TH[pos].estado = E_APAGADO;
+        TH->n--;
     }
-
-    TH->n--;
 }
 
 void THEA_Imprimir(THEA *TH)
