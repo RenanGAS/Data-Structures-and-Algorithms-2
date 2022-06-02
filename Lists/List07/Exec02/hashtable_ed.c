@@ -86,14 +86,16 @@ int THED_Hash(THED *TH, int chave)
     return chave % TH->m;
 }
 
-static void THED_Redimensionar(THED *HT, float c, size_t reserva)
+static void THED_Redimensionar(THED *HT, size_t c, size_t reserva)
 {
-    if (((float)HT->n / HT->m) <= c)
+    if ((HT->n / HT->m) <= c)
     {
         return;
     }
 
-    int new_m = (HT->m * 2) + reserva;
+    printf("\nRedimensionamento:\n\n%ld / %ld > %ld .: M = %ld -> M = %ld\n", HT->n, HT->m, HT->c, HT->m, (HT->n / c) + reserva);
+
+    int new_m = (HT->n / c) + reserva;
 
     ILIST **new_t = malloc(new_m * sizeof(ILIST *));
 
@@ -116,10 +118,9 @@ static void THED_Redimensionar(THED *HT, float c, size_t reserva)
             THED_Inserir(HT, old_t[i]->nos[j].chave, old_t[i]->nos[j].valor);
         }
     }
-
 }
 
-THED *THED_Criar(int m, int alloc_step, float c)
+THED *THED_Criar(int m, int alloc_step, size_t c)
 {
     int i;
     THED *nova_th;
@@ -131,6 +132,7 @@ THED *THED_Criar(int m, int alloc_step, float c)
     nova_th->diffMax = 0;
     nova_th->flag = 0;
     nova_th->c = c;
+    nova_th->reserva = 5;
     nova_th->t = malloc(sizeof(ILIST *) * m);
 
     for (i = 0; i < m; i++)
@@ -176,9 +178,7 @@ void THED_Inserir(THED *TH, int chave, int valor)
 
 #endif
 
-    size_t reserva = 5;
-
-    THED_Redimensionar(TH, TH->c, reserva);
+    THED_Redimensionar(TH, TH->c, TH->reserva);
 }
 
 void THED_Remover(THED *TH, int chave)
