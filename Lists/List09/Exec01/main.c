@@ -25,5 +25,17 @@ int main(int argc, char** argv){
         THEA_Inserir(ht, chave, chave + (rand() % 10));
     }
 
+    THEA_Remover(ht, 110);
+    THEA_Remover(ht, 150);
+    THEA_Remover(ht, 70);
+    THEA_Remover(ht, 190);
+    THEA_Remover(ht, 230);
+    THEA_Remover(ht, 20);
+    THEA_Remover(ht, 180);
+    THEA_Remover(ht, 220);
+    THEA_Remover(ht, 90);
+    THEA_Remover(ht, 210);
+    THEA_Remover(ht, 170);
+
     THEA_Imprimir(ht);
 }
