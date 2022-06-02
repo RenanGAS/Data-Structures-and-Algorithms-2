@@ -4,13 +4,11 @@
 
 typedef struct THED {
     ILIST** t;
-    size_t m, n;
-    int min, max, diffMin, diffMax, flag;
-    float c;
+    int m, n, k;
 } THED;
 
 int THED_Hash(THED* HT, int chave);
-THED* THED_Criar(int m, int alloc_step, float c);
+THED* THED_Criar(int m, int alloc_step, int k);
 void THED_Inserir(THED* HT, int chave, int valor);
 void THED_Remover(THED* HT, int chave);
 INOH* THED_Buscar(THED* HT, int chave);

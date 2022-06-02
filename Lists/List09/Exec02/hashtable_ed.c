@@ -3,123 +3,40 @@
 #include "ilist.h"
 #include "hashtable_ed.h"
 
-#define B 0
-
-#define C 0
-
-// Funções Auxiliares
-
-#if B
-
-static int sendFirst(THED *TH)
-{
-    int i;
-    for (i = 0; i < TH->m; i++)
-    {
-        if (TH->t[i]->tam > 0)
-        {
-            return TH->t[i]->nos[0].chave;
-        }
-    }
-}
-
-int max(THED *TH)
-{
-    int max = sendFirst(TH), i, j;
-
-    for (i = 0; i < TH->m; i++)
-    {
-        for (j = 0; j < TH->t[i]->tam; j++)
-        {
-            INOH *no_elem = ILIST_Endereco(TH->t[i], j);
-
-            if (no_elem->chave > max)
-            {
-                max = no_elem->chave;
-            }
-        }
-    }
-
-    return max;
-}
-
-int min(THED *TH)
-{
-    int min = sendFirst(TH), i, j;
-
-    for (i = 0; i < TH->m; i++)
-    {
-        for (j = 0; j < TH->t[i]->tam; j++)
-        {
-            INOH *no_elem = ILIST_Endereco(TH->t[i], j);
-
-            if (no_elem->chave < min)
-            {
-                min = no_elem->chave;
-            }
-        }
-    }
-
-    return min;
-}
-
-#endif
-
-#if C
-
-int min(THED *TH)
-{
-    return TH->min;
-}
-
-int max(THED *TH)
-{
-    return TH->max;
-}
-
-#endif
-
-// Funções Principais
 
 int THED_Hash(THED *TH, int chave)
 {
     return chave % TH->m;
 }
 
-static void THED_Redimensionar(THED *HT, float c, size_t reserva)
+static void THED_Redimensionar(THED *HT, int m_novo)
 {
-    if (((float)HT->n / HT->m) <= c)
-    {
-        return;
-    }
+    ILIST **new_t, **old_t; 
+    int i, j, old_m;
 
-    int new_m = (HT->m * 2) + reserva;
+    new_t = malloc(m_novo * sizeof(ILIST *));
 
-    ILIST **new_t = malloc(new_m * sizeof(ILIST *));
-
-    for (int i = 0; i < new_m; i++)
+    for (int i = 0; i < m_novo; i++)
     {
         new_t[i] = ILIST_Criar(10);
     }
 
-    ILIST **old_t = HT->t;
-    size_t old_m = HT->m;
-
+    old_t = HT->t;
+    old_m = HT->m;
     HT->t = new_t;
-    HT->m = new_m;
+    HT->m = m_novo;
     HT->n = 0;
 
-    for (int i = 0; i < old_m; i++)
+    for (i = 0; i < old_m; i++)
     {
-        for (int j = 0; j < old_t[i]->tam; j++)
+        for (j = 0; j < old_t[i]->tam; j++)
         {
             THED_Inserir(HT, old_t[i]->nos[j].chave, old_t[i]->nos[j].valor);
         }
     }
-
 }
 
-THED *THED_Criar(int m, int alloc_step, float c)
+THED *THED_Criar(int m, int alloc_step, int k)
 {
     int i;
     THED *nova_th;
@@ -127,10 +44,7 @@ THED *THED_Criar(int m, int alloc_step, float c)
 
     nova_th->m = m;
     nova_th->n = 0;
-    nova_th->diffMin = 0;
-    nova_th->diffMax = 0;
-    nova_th->flag = 0;
-    nova_th->c = c;
+    nova_th->k = k;
     nova_th->t = malloc(sizeof(ILIST *) * m);
 
     for (i = 0; i < m; i++)
@@ -143,6 +57,12 @@ THED *THED_Criar(int m, int alloc_step, float c)
 
 void THED_Inserir(THED *TH, int chave, int valor)
 {
+    if ((TH->n / TH->m) > TH->k)
+    {
+        printf("\nRedimensionamento:\n\n%d / %d > %d .: M = %d -> M = %d\n", TH->n, TH->m, TH->k, TH->m, (TH->m * 2) + 1);
+        THED_Redimensionar(TH, (TH->m * 2) + 1);
+    }
+
     int pos = THED_Hash(TH, chave);
 
     int list_size = ILIST_Tamanho(TH->t[pos]);
@@ -153,32 +73,6 @@ void THED_Inserir(THED *TH, int chave, int valor)
     {
         TH->n++;
     }
-
-#if C
-
-    if (!TH->flag)
-    {
-        TH->min = chave;
-        TH->max = chave;
-        TH->flag = 1;
-    }
-
-    if (TH->max < chave)
-    {
-        TH->diffMax = chave - TH->max;
-        TH->max = chave;
-    }
-    else if (TH->min > chave)
-    {
-        TH->diffMin = TH->min - chave;
-        TH->min = chave;
-    }
-
-#endif
-
-    size_t reserva = 5;
-
-    THED_Redimensionar(TH, TH->c, reserva);
 }
 
 void THED_Remover(THED *TH, int chave)
@@ -193,19 +87,6 @@ void THED_Remover(THED *TH, int chave)
     {
         TH->n--;
     }
-
-#if C
-
-    if (TH->max == chave)
-    {
-        TH->max -= TH->diffMax;
-    }
-    else if (TH->min == chave)
-    {
-        TH->min += TH->diffMin;
-    }
-
-#endif
 }
 
 INOH *THED_Buscar(THED *TH, int chave)
@@ -231,7 +112,7 @@ void THED_Imprimir(THED *TH)
         printf("\n");
     }
 
-    printf("\nNúmero de Elementos: %lu\n\n", TH->n);
+    printf("\nNúmero de Elementos: %d\n\n", TH->n);
     printf("===============\n");
 }
 
