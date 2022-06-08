@@ -15,9 +15,19 @@ int main(int argc, char** argv){
 
     // printf("%s\n", rpn);
 
-    AB a = AB_Criar(5, AB_Criar(7, NULL, NULL), AB_Criar(8, NULL, AB_Criar(9, NULL, NULL)));
+    AB a = AB_Criar(10, NULL, NULL);
 
-    AB_Destruir(a);
+    AB_Inserir(4, &a);
+    AB_Inserir(20, &a);
+    AB_Inserir(6, &a);
+    AB_Inserir(2, &a);
+    AB_Inserir(3, &a);
 
+    // AB b = AB_Buscar(7, a);
 
+    // printf("\nÀ esquerda de 7: %d\n", b->esq->dado);
+
+    AB_Imprimir(&a, 0, 'r');
+
+    AB_Destruir(&a);
 }
