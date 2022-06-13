@@ -13,5 +13,6 @@ AB AB_Buscar(int dado, AB A);
 void AB_Inserir(int dado, AB *A);
 void AB_Imprimir(AB *A, int i, char p);
 void AB_Destruir(AB *A);
+int AB_Tamanho(AB A, int tamE, int tamD, int n);
 
 #endif

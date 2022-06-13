@@ -2,6 +2,24 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+int AB_Tamanho(AB A, int tamE, int tamD, int n)
+{
+    if (A == NULL)
+    {
+        return n;
+    }
+
+    n++;
+
+    tamE = AB_Tamanho(A->esq, tamE, tamD, n);
+
+    n = 0;
+
+    tamD = AB_Tamanho(A->dir, tamE, tamD, n);
+
+    return tamE + tamD;
+}
+
 AB AB_Criar(int dado, AB e, AB d)
 {
     AB n;
@@ -69,7 +87,7 @@ void AB_Imprimir(AB *A, int i, char p)
     printf("(%c) %d\n", p, (*A)->dado);
 
     i++;
-    
+
     AB_Imprimir(&(*A)->esq, i, 'e');
 
     AB_Imprimir(&(*A)->dir, i, 'd');
