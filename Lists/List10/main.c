@@ -27,6 +27,10 @@ int main(int argc, char** argv){
 
     // printf("\nÀ esquerda de 7: %d\n", b->esq->dado);
 
+    int tamAB = AB_Tamanho(a, 0, 0, 0);
+
+    printf("\nTamanho da Árvore: %d\n\n", tamAB);
+
     AB_Imprimir(&a, 0, 'r');
 
     AB_Destruir(&a);
