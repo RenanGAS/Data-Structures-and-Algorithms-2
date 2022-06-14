@@ -35,9 +35,13 @@ int main(int argc, char **argv)
 
     // printf("\nÀ esquerda de 7: %d\n", b->esq->dado);
 
-    int tamAB = AB_Tamanho(a, 0, 0, 0);
+    int tamLazyAB = AB_TamanhoLazy(a, 0, 0, 0);
 
-    printf("\nTamanho da Árvore: %d\n", tamAB);
+    printf("\nTamanho (Lazy) da Árvore : %d\n", tamLazyAB);
+
+     int tamEagerAB = AB_TamanhoEager(a);
+
+    printf("\nTamanho (Eager) da Árvore: %d\n", tamEagerAB);
 
     int altAB = ABB_Altura(a, 0, 0, 0);
 
