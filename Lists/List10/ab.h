@@ -14,5 +14,6 @@ void AB_Inserir(int dado, AB *A);
 void AB_Imprimir(AB *A, int i, char p);
 void AB_Destruir(AB *A);
 int AB_Tamanho(AB A, int tamE, int tamD, int n);
+int ABB_Altura(AB A, int n, int max, int flag);
 
 #endif

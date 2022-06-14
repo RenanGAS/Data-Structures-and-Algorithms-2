@@ -20,6 +20,32 @@ int AB_Tamanho(AB A, int tamE, int tamD, int n)
     return tamE + tamD;
 }
 
+int ABB_Altura(AB A, int n, int max, int flag)
+{
+    if (A == NULL)
+    {
+        flag = 0;
+
+        if (n > max)
+        {
+            max = n;
+        }
+
+        return max;
+    }
+
+    if (flag)
+    {
+        n++;
+    }
+
+    max = ABB_Altura(A->esq, n, max, 1);
+
+    max = ABB_Altura(A->dir, n, max, 1);
+
+    n -= 1;
+}
+
 AB AB_Criar(int dado, AB e, AB d)
 {
     AB n;
