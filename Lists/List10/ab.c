@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int AB_Tamanho(AB A, int tamE, int tamD, int n)
+int AB_TamanhoLazy(AB A, int tamE, int tamD, int n)
 {
     if (A == NULL)
     {
@@ -11,11 +11,11 @@ int AB_Tamanho(AB A, int tamE, int tamD, int n)
 
     n++;
 
-    tamE = AB_Tamanho(A->esq, tamE, tamD, n);
+    tamE = AB_TamanhoLazy(A->esq, tamE, tamD, n);
 
     n = 0;
 
-    tamD = AB_Tamanho(A->dir, tamE, tamD, n);
+    tamD = AB_TamanhoLazy(A->dir, tamE, tamD, n);
 
     return tamE + tamD;
 }
@@ -99,17 +99,23 @@ int AB_AB(AB A, int r)
     r = AB_AB(A->dir, r);
 }
 
+int AB_TamanhoEager(AB A)
+{
+    return A->n;
+}
+
 AB AB_Criar(int dado, AB e, AB d)
 {
-    AB n;
+    AB no;
 
-    n = malloc(sizeof(struct AB));
-    n->dado = dado;
-    n->esq = e;
-    n->dir = d;
-    n->profundidade = 0;
+    no = malloc(sizeof(struct AB));
+    no->dado = dado;
+    no->esq = e;
+    no->dir = d;
+    no->profundidade = 0;
+    no->n = 0;
 
-    return n;
+    return no;
 }
 
 AB AB_Buscar(int dado, AB A)
@@ -141,6 +147,8 @@ void AB_Inserir(int dado, AB *A)
     }
     else
     {
+        (*A)->n++;
+
         if (dado < (*A)->dado)
         {
             AB_Inserir(dado, &(*A)->esq);
@@ -164,7 +172,7 @@ void AB_Imprimir(AB *A, int i, char p)
         printf("\t");
     }
 
-    printf("(%c) (%d) %d\n", p, (*A)->profundidade, (*A)->dado);
+    printf("(%c) (%d) (%d) %d\n", p, (*A)->profundidade, (*A)->n, (*A)->dado);
 
     i++;
 
