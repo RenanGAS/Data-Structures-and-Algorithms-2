@@ -3,11 +3,12 @@
 // #include "shunting_yard.h"
 #include "ab.h"
 
-int main(int argc, char** argv){
+int main(int argc, char **argv)
+{
 
-    //char exp[] = "(2+1) - 2 * 3 * 6 / 2 + 5";
-    //char exp[] = "((2+1) - 2 * 3)+5*4";
-    // char exp[] = "(((2+1) +4)- 2 * 3)+5*4 - (2*4)";
+    // char exp[] = "(2+1) - 2 * 3 * 6 / 2 + 5";
+    // char exp[] = "((2+1) - 2 * 3)+5*4";
+    //  char exp[] = "(((2+1) +4)- 2 * 3)+5*4 - (2*4)";
 
     // char* rpn;
 
@@ -22,6 +23,8 @@ int main(int argc, char** argv){
     AB_Inserir(6, &a);
     AB_Inserir(2, &a);
     AB_Inserir(3, &a);
+    // AB_Inserir(1, &a);
+    // AB_Inserir(0, &a);
     // AB_Inserir(22, &a);
     // AB_Inserir(21, &a);
     // AB_Inserir(18, &a);
@@ -39,6 +42,8 @@ int main(int argc, char** argv){
     int altAB = ABB_Altura(a, 0, 0, 0);
 
     printf("\nAltura da Árvore: %d\n\n", altAB);
+
+    AB_CalcularProfundidades(a, 0);
 
     AB_Imprimir(&a, 0, 'r');
 
