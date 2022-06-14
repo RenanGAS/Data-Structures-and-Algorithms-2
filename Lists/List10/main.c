@@ -22,6 +22,11 @@ int main(int argc, char** argv){
     AB_Inserir(6, &a);
     AB_Inserir(2, &a);
     AB_Inserir(3, &a);
+    // AB_Inserir(22, &a);
+    // AB_Inserir(21, &a);
+    // AB_Inserir(18, &a);
+    // AB_Inserir(17, &a);
+    // AB_Inserir(16, &a);
 
     // AB b = AB_Buscar(7, a);
 
@@ -29,7 +34,11 @@ int main(int argc, char** argv){
 
     int tamAB = AB_Tamanho(a, 0, 0, 0);
 
-    printf("\nTamanho da Árvore: %d\n\n", tamAB);
+    printf("\nTamanho da Árvore: %d\n", tamAB);
+
+    int altAB = ABB_Altura(a, 0, 0, 0);
+
+    printf("\nAltura da Árvore: %d\n\n", altAB);
 
     AB_Imprimir(&a, 0, 'r');
 
