@@ -6,6 +6,7 @@ typedef struct AB
     struct AB *esq;
     struct AB *dir;
     int dado;
+    int profundidade;
 } * AB;
 
 AB AB_Criar(int dado, AB e, AB d);
@@ -15,5 +16,6 @@ void AB_Imprimir(AB *A, int i, char p);
 void AB_Destruir(AB *A);
 int AB_Tamanho(AB A, int tamE, int tamD, int n);
 int ABB_Altura(AB A, int n, int max, int flag);
+void AB_CalcularProfundidades(AB A, int p);
 
 #endif

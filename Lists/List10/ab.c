@@ -46,6 +46,24 @@ int ABB_Altura(AB A, int n, int max, int flag)
     n -= 1;
 }
 
+void AB_CalcularProfundidades(AB A, int p)
+{
+    if (A == NULL)
+    {
+        return;
+    }
+
+    A->profundidade = p;
+
+    p++;
+
+    AB_CalcularProfundidades(A->esq, p);
+
+    AB_CalcularProfundidades(A->dir, p);
+
+    p -= 2;
+}
+
 AB AB_Criar(int dado, AB e, AB d)
 {
     AB n;
@@ -54,6 +72,7 @@ AB AB_Criar(int dado, AB e, AB d)
     n->dado = dado;
     n->esq = e;
     n->dir = d;
+    n->profundidade = 0;
 
     return n;
 }
@@ -110,7 +129,7 @@ void AB_Imprimir(AB *A, int i, char p)
         printf("\t");
     }
 
-    printf("(%c) %d\n", p, (*A)->dado);
+    printf("(%c) (%d) %d\n", p, (*A)->profundidade, (*A)->dado);
 
     i++;
 
