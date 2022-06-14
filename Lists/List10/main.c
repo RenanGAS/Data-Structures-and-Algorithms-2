@@ -47,5 +47,9 @@ int main(int argc, char **argv)
 
     AB_Imprimir(&a, 0, 'r');
 
+    int compIntAB = AB_ComprimentoInterno(a, 0);
+
+    printf("\nComprimento Interno da Árvore: %d\n", compIntAB);
+
     AB_Destruir(&a);
 }
