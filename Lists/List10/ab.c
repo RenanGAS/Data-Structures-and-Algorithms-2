@@ -64,6 +64,20 @@ void AB_CalcularProfundidades(AB A, int p)
     p -= 2;
 }
 
+int AB_ComprimentoInterno(AB A, int c)
+{
+    if (A == NULL)
+    {
+        return c;
+    }
+
+    c += A->profundidade;
+
+    c = AB_ComprimentoInterno(A->esq, c);
+
+    c = AB_ComprimentoInterno(A->dir, c);
+}
+
 AB AB_Criar(int dado, AB e, AB d)
 {
     AB n;

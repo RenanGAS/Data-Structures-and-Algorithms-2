@@ -17,5 +17,6 @@ void AB_Destruir(AB *A);
 int AB_Tamanho(AB A, int tamE, int tamD, int n);
 int ABB_Altura(AB A, int n, int max, int flag);
 void AB_CalcularProfundidades(AB A, int p);
+int AB_ComprimentoInterno(AB A, int c);
 
 #endif
