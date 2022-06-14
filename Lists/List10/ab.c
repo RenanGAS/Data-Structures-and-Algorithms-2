@@ -78,6 +78,27 @@ int AB_ComprimentoInterno(AB A, int c)
     c = AB_ComprimentoInterno(A->dir, c);
 }
 
+int AB_AB(AB A, int r)
+{
+    if (A == NULL)
+    {
+        return r;
+    }
+
+    if (A->esq != NULL && A->esq->dado > A->dado)
+    {
+        r = 0;
+    }
+    else if (A->dir != NULL && A->dir->dado <= A->dado)
+    {
+        r = 0;
+    }
+
+    r = AB_AB(A->esq, r);
+
+    r = AB_AB(A->dir, r);
+}
+
 AB AB_Criar(int dado, AB e, AB d)
 {
     AB n;
