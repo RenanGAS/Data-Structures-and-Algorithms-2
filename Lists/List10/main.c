@@ -51,5 +51,16 @@ int main(int argc, char **argv)
 
     printf("\nComprimento Interno da Árvore: %d\n", compIntAB);
 
+    int verifyAB = AB_AB(a, 1);
+
+    if (verifyAB)
+    {
+        printf("\nA Árvore é de Busca Binária\n");
+    }
+    else
+    {
+        printf("\nA Árvore não é de Busca Binária\n");
+    }
+
     AB_Destruir(&a);
 }
