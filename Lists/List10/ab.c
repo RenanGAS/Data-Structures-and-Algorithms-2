@@ -20,7 +20,7 @@ int AB_TamanhoLazy(AB A, int tamE, int tamD, int n)
     return tamE + tamD;
 }
 
-int ABB_Altura(AB A, int n, int max, int flag)
+int AB_AlturaLazy(AB A, int n, int max, int flag)
 {
     if (A == NULL)
     {
@@ -39,11 +39,16 @@ int ABB_Altura(AB A, int n, int max, int flag)
         n++;
     }
 
-    max = ABB_Altura(A->esq, n, max, 1);
+    max = AB_AlturaLazy(A->esq, n, max, 1);
 
-    max = ABB_Altura(A->dir, n, max, 1);
+    max = AB_AlturaLazy(A->dir, n, max, 1);
 
     n -= 1;
+}
+
+int AB_AlturaEager(AB A)
+{
+    return A->h;
 }
 
 void AB_CalcularProfundidades(AB A, int p)
@@ -114,6 +119,7 @@ AB AB_Criar(int dado, AB e, AB d)
     no->dir = d;
     no->profundidade = 0;
     no->n = 0;
+    no->h = 0;
 
     return no;
 }
@@ -138,24 +144,30 @@ AB AB_Buscar(int dado, AB A)
     return AB_Buscar(dado, A->dir);
 }
 
-void AB_Inserir(int dado, AB *A)
+void AB_Inserir(int dado, AB *A, int countH, AB *Acpy)
 {
     if ((*A) == NULL)
     {
+        if ((*Acpy)->h < countH)
+        {
+            (*Acpy)->h = countH;
+        }
+        
         *A = AB_Criar(dado, NULL, NULL);
         return;
     }
     else
     {
         (*A)->n++;
+        countH++;
 
         if (dado < (*A)->dado)
         {
-            AB_Inserir(dado, &(*A)->esq);
+            AB_Inserir(dado, &(*A)->esq, countH, Acpy);
         }
         else
         {
-            AB_Inserir(dado, &(*A)->dir);
+            AB_Inserir(dado, &(*A)->dir, countH, Acpy);
         }
     }
 }
