@@ -55,9 +55,13 @@ int main(int argc, char **argv)
 
     AB_Imprimir(&a, 0, 'r');
 
-    int compIntAB = AB_ComprimentoInterno(a, 0);
+    int compIntABLazy = AB_ComprimentoInternoLazy(a, 0);
 
-    printf("\nComprimento Interno da Árvore: %d\n", compIntAB);
+    printf("\nComprimento Interno (Lazy) da Árvore: %d\n", compIntABLazy);
+
+    int compIntABEager = AB_ComprimentoInternoEager(a);
+
+    printf("\nComprimento Interno (Eager) da Árvore: %d\n", compIntABEager);
 
     int verifyAB = AB_AB(a, 1);
 
