@@ -69,7 +69,7 @@ void AB_CalcularProfundidades(AB A, int p)
     p -= 2;
 }
 
-int AB_ComprimentoInterno(AB A, int c)
+int AB_ComprimentoInternoLazy(AB A, int c)
 {
     if (A == NULL)
     {
@@ -78,9 +78,14 @@ int AB_ComprimentoInterno(AB A, int c)
 
     c += A->profundidade;
 
-    c = AB_ComprimentoInterno(A->esq, c);
+    c = AB_ComprimentoInternoLazy(A->esq, c);
 
-    c = AB_ComprimentoInterno(A->dir, c);
+    c = AB_ComprimentoInternoLazy(A->dir, c);
+}
+
+int AB_ComprimentoInternoEager(AB A)
+{
+    return A->ci;
 }
 
 int AB_AB(AB A, int r)
@@ -120,6 +125,7 @@ AB AB_Criar(int dado, AB e, AB d)
     no->profundidade = 0;
     no->n = 0;
     no->h = 0;
+    no->ci = 0;
 
     return no;
 }
@@ -152,7 +158,9 @@ void AB_Inserir(int dado, AB *A, int countH, AB *Acpy)
         {
             (*Acpy)->h = countH;
         }
-        
+
+        (*Acpy)->ci += countH;
+
         *A = AB_Criar(dado, NULL, NULL);
         return;
     }
