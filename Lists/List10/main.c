@@ -18,11 +18,11 @@ int main(int argc, char **argv)
 
     AB a = AB_Criar(10, NULL, NULL);
 
-    AB_Inserir(4, &a);
-    AB_Inserir(20, &a);
-    AB_Inserir(6, &a);
-    AB_Inserir(2, &a);
-    AB_Inserir(3, &a);
+    AB_Inserir(4, &a, 0, &a);
+    AB_Inserir(20, &a, 0, &a);
+    AB_Inserir(6, &a, 0, &a);
+    AB_Inserir(2, &a, 0, &a);
+    AB_Inserir(3, &a, 0, &a);
     // AB_Inserir(1, &a);
     // AB_Inserir(0, &a);
     // AB_Inserir(22, &a);
@@ -43,9 +43,13 @@ int main(int argc, char **argv)
 
     printf("\nTamanho (Eager) da Árvore: %d\n", tamEagerAB);
 
-    int altAB = ABB_Altura(a, 0, 0, 0);
+    int altLazyAB = AB_AlturaLazy(a, 0, 0, 0);
 
-    printf("\nAltura da Árvore: %d\n\n", altAB);
+    printf("\nAltura (Lazy) da Árvore: %d\n", altLazyAB);
+
+    int altEagerAB = AB_AlturaEager(a);
+
+    printf("\nAltura (Eager) da Árvore: %d\n\n", altEagerAB);
 
     AB_CalcularProfundidades(a, 0);
 
