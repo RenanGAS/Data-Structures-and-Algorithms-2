@@ -123,7 +123,7 @@ AB AB_Criar(int dado, AB e, AB d)
     no->esq = e;
     no->dir = d;
     no->profundidade = 0;
-    no->n = 0;
+    no->n = 1;
     no->h = 0;
     no->ci = 0;
 
