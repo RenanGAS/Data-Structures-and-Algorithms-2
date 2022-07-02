@@ -1,3 +1,3 @@
 # Data Structures and Algorithms 2
 
-Activities and Tests made in the course
+Activities and Tests made in the course (Closed)
